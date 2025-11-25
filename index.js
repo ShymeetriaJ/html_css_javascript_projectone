@@ -9,6 +9,15 @@ const filterDropdown = document.getElementById(`filter-dropdown`);
 
 let apiCountries = [];
 
+function convertHtml(string) {
+    return String(string)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
 async function fetchapiCountries() {
     try {
         const response = await fetch(`https://restcountries.com/v3.1/all`);
@@ -24,7 +33,23 @@ async function fetchapiCountries() {
             countryContainer.innerHTML = `<p> Sorry, try again later.</p>`;
         }
     }
-};
+}
+function renderCountries(countries) {
+    if (!countryContainer) return;
+
+       countryContainer.innerHTML = '';
+
+    if (!countries || countries.length === 0) {
+        countryContainer.innerHTML = `<p> Country not found </p>`;
+        return;
+    }
+
+countries.forEach(country => {
+        const card = makeCountryCard(country);
+        countryContainer.appendChild(card);
+    });
+}
+
 
 function makeCountryCard(country = {} ) {
 
@@ -62,29 +87,14 @@ const card = document.createElement('article');
   card.setAttribute('aria-label', `Country card for ${name}`);
   
   card.innerHTML = `
-    <img class="flag" src="${escapeHtml(flagUrl)}" alt="Flag of ${escapeHtml(name)}" />
+    <img class="flag" src="${convertHtml(flagUrl)}" alt="Flag of ${convertHtml(name)}" />
     <div class="country-info">
-      <h2 class="country-name">${escapeHtml(name)}</h2>
-      <p><strong>Population:</strong> ${escapeHtml(population)}</p>
-      <p><strong>Region:</strong> ${escapeHtml(region)}</p>
-      <p><strong>Capital:</strong> ${escapeHtml(capital)}</p></div>`;
+      <h2 class="country-name">${convertHtml(name)}</h2>
+      <p><strong>Population:</strong> ${convertHtml(population)}</p>
+      <p><strong>Region:</strong> ${convertHtml(region)}</p>
+      <p><strong>Capital:</strong> ${convertHtml(capital)}</p></div>`;
   
   return card;
 }
-function renderCountries(countries) {
-    if (!countryContainer) return;
-
-       countryContainer.innerHTML = '';
-
-    if (!countries || countries.length === 0) {
-        countryContainer.innerHTML = `<p> Country not found </p>`;
-        return;
-    }
-}
- countries.forEach(country => {
-        const card = makeCountryCard(country);
-        countryContainer.appendChild(card);
-});
-
 
 fetchapiCountries();
