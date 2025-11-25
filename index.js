@@ -12,7 +12,7 @@ let apiCountries = [];
 async function fetchapiCountries() {
     try {
         const response = await fetch(`https://restcountries.com/v3.1/all`);
-        if (!response.ok) throw new dataError("Error fetching api data");
+        if (!response.ok) throw new Error("Error fetching api data");
         const data = await response.json();
         
         apiCountries = data;
@@ -33,7 +33,6 @@ if (country && country.name && country.name.common) {
   name = country.name.common;
 }
 
-
 let flagUrl = "";
 if (country && country.flags) {
   if (country.flags.png) {
@@ -43,12 +42,10 @@ if (country && country.flags) {
   }
 }
 
-
 let population = "N/A";
 if (typeof country.population === "number") {
   population = country.population.toLocaleString();
 }
-
 
 let region = "N/A";
 if (country && country.region) {
@@ -74,4 +71,20 @@ const card = document.createElement('article');
   
   return card;
 }
+function renderCountries(countries) {
+    if (!countryContainer) return;
 
+       countryContainer.innerHTML = '';
+
+    if (!countries || countries.length === 0) {
+        countryContainer.innerHTML = `<p> Country not found </p>`;
+        return;
+    }
+}
+ countries.forEach(country => {
+        const card = makeCountryCard(country);
+        countryContainer.appendChild(card);
+});
+
+
+fetchapiCountries();
