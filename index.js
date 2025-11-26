@@ -103,8 +103,33 @@ const card = document.createElement('article');
     showDetailContent(country);
   });
   
+  function showDetailContent(country) {
+    document.querySelector('.main-container').style.display = 'none';
+    const detailPage = document.getElementById('detail-page');
+    detailPage.style.display = 'block';
+
+    const detailContent = document.getElementById('detail-content');
+
+    let nativeName = country.name.common;
+    if (country.name.nativeName) {
+      const nativeNameObject = Object.values(country.name.nativeName)[0];
+      if (nativeNameObject.common) {
+        nativeName = nativeNameObject.common;
+      }
+    }
+  let topLevelDomain = 'N/A';
+  if (country.topLevelDomain && country.topLevelDomain.length > 0) {
+    topLevelDomain = country.topLevelDomain.join(', ');
+  }
+  let currencies = 'N/A';
+  if (country.currencies) {
+    currencies = Object.values(country.currencies)
+    .map(currencies => currencies.name)
+    .join(', ');
+  }
+  }
   card.style.cursor ='pointer';
-  
+
   return card;
 }
 
