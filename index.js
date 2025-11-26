@@ -100,5 +100,19 @@ const card = document.createElement('article');
   
   return card;
 }
+function searchByCountry() {
+  const countryInput = searchInput.value.trim().toLowerCase();
+  
+  const filterCountries = apiCountries.filter(country => {
+    const countryName = country.name.common.toLowerCase();
+    return countryName.includes(countryInput);
+  });
+  renderCountries(filterCountries);
+}
+function searchByRegion() {
+  const region = filterDropdown.value;
+  return
+searchInput.addEventListener('input', searchByCountry)
+};
 
 fetchapiCountries();
