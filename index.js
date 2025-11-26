@@ -19,14 +19,18 @@ function convertHtml(string) {
 }
 
 async function fetchapiCountries() {
+    console.log('starting fetch....')
     try {
-        const response = await fetch(`https://restcountries.com/v3.1/all`);
+        const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,population,region,capital');
+        console.log('Response status:', response.status);
         if (!response.ok) throw new Error("Error fetching api data");
+
         const data = await response.json();
         
         apiCountries = data;
         renderCountries(apiCountries);
 
+        console.log('Successfully fetched countries:', data.length);
         } catch (error) {
             console.error(`Failed to fetch countries`, error)
             if (countryContainer) {

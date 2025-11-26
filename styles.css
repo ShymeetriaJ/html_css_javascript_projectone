@@ -21,6 +21,63 @@ nav {
   font-weight: 800;
   margin: 0;
 }
+.dark-mode-btn {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.dark-mode-btn:hover {
+  opacity: 0.8;
+}
+.searchbox {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  flex: 1;
+  min-width: 200px;
+}
+.dark .searchbox {
+  background: #2b3945;
+}
+.searchbox input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.95rem;
+  width: 100%;
+  color: inherit;
+}
+.filter-selection select {
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: inherit;
+}
+.dark .filter-selection select {
+  background: #2b3945;
+}
+.dark .country-card {
+  background: #2b3945;
+}
+
+
 
 
 
@@ -32,7 +89,7 @@ body {
   color: #111;
 }
 .dark {
-  background-color: #2b2a2a;
+  background-color: #202b34;
   color: white;
 }
 .main-container {
