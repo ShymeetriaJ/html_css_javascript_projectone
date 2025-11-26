@@ -90,8 +90,8 @@ const card = document.createElement('article');
   card.setAttribute('role', 'article');
   card.setAttribute('aria-label', `Country card for ${name}`);
   
-  card.innerHTML = `
-    <img class="flag" src="${convertHtml(flagUrl)}" alt="Flag of ${convertHtml(name)}" />
+  card.innerHTML = 
+    `<img class="flag" src="${convertHtml(flagUrl)}" alt="Flag of ${convertHtml(name)}" />
     <div class="country-info">
       <h2 class="country-name">${convertHtml(name)}</h2>
       <p><strong>Population:</strong> ${convertHtml(population)}</p>
@@ -100,32 +100,27 @@ const card = document.createElement('article');
   
   return card;
 }
-function searchByCountry() {
-  const countryInput = searchInput.value.trim().toLowerCase();
-  
-  const filterCountries = apiCountries.filter(country => {
-    const countryName = country.name.common.toLowerCase();
-    return countryName.includes(countryInput);
-  });
-  renderCountries(filterCountries);
-}
-function searchByRegion() {
-  const region = filterDropdown.value;
-  return
-};
-searchInput.addEventListener('input', searchByCountry);
 
-function searchByRegion() {
-  const region = filterDropdown.value;
-  if (region === "" ) {
-    renderCountries(apiCountries);
-    return;
-  }
-  const filterCountries = apiCountries.filter(country => {
-    return country.region === region;
+function combofilters() {
+  const searchCountry = searchInput.value.trim().toLowerCase();
+  const searchRegion = filterDropdown.value;
+  
+  let filterCountries = apiCountries;
+
+  if (searchRegion !== '') {
+    filterCountries = filterCountries.filter(country => {
+      return country.region === searchRegion;
   });
-  renderCountries(filterCountries); 
 }
-filterDropdown.addEventListener('change', searchByRegion);
+  if (searchCountry !== '') {
+    filterCountries = filterCountries.filter(country => {
+  const countryName = country.name.common.toLowerCase();
+  return countryName.includes(searchCountry);
+  });
+}
+renderCountries(filterCountries);
+}
+searchInput.addEventListener('input', combofilters);
+filterDropdown.addEventListener('change', combofilters);
 
 fetchapiCountries();
