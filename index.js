@@ -85,6 +85,7 @@ let capital = "N/A";
 if (country && Array.isArray(country.capital) && country.capital.length > 0) {
   capital = country.capital[0];
 }
+
 const card = document.createElement('article');
   card.className = 'country-card';
   card.setAttribute('role', 'article');
@@ -97,6 +98,12 @@ const card = document.createElement('article');
       <p><strong>Population:</strong> ${convertHtml(population)}</p>
       <p><strong>Region:</strong> ${convertHtml(region)}</p>
       <p><strong>Capital:</strong> ${convertHtml(capital)}</p></div>`;
+  
+  card.addEventListener('click', () => {
+    showDetailContent(country);
+  });
+  
+  card.style.cursor ='pointer';
   
   return card;
 }

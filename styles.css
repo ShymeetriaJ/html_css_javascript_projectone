@@ -50,6 +50,10 @@ nav {
 .dark .searchbox {
   background: #2b3945;
 }
+
+
+/*search and filter styling*/
+
 .searchbox input {
   border: none;
   outline: none;
@@ -124,4 +128,46 @@ body {
 }
 .country-card .country-info {
   padding: 1rem;
+}
+
+/* detail page */
+
+.detail-page {
+  background: #fafafa;
+  min-height: 100vh;
+  padding-top: 2rem;
+}
+
+.dark .detail-page {
+  background: #202b34;
+}
+
+.detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.back-btn {
+  background: #ffffff;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+  color: inherit;
+}
+
+.dark .back-btn {
+  background: #2b3945;
+}
+
+.back-btn:hover {
+  opacity: 0.8;
 }
