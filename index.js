@@ -112,7 +112,20 @@ function searchByCountry() {
 function searchByRegion() {
   const region = filterDropdown.value;
   return
-searchInput.addEventListener('input', searchByCountry)
 };
+searchInput.addEventListener('input', searchByCountry);
+
+function searchByRegion() {
+  const region = filterDropdown.value;
+  if (region === "" ) {
+    renderCountries(apiCountries);
+    return;
+  }
+  const filterCountries = apiCountries.filter(country => {
+    return country.region === region;
+  });
+  renderCountries(filterCountries); 
+}
+filterDropdown.addEventListener('change', searchByRegion);
 
 fetchapiCountries();
