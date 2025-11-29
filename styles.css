@@ -184,3 +184,33 @@ body {
   box-shadow: 0 8px 20px rgba(0, 123, 255, 0.15);
   cursor: pointer;
 }
+/* detail page*/
+.country-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+.detail-flag {
+  width: 100%;
+  max-width: 560px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.detail-info h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+}
+.detail-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.detail-column p {
+  margin: 0.75rem 0;
+  line-height: 1.8;
+}
+.detail-column strong {
+  font-weight: 600;
+}
