@@ -214,3 +214,20 @@ body {
 .detail-column strong {
   font-weight: 600;
 }
+/* Screen responsiveness */
+@media (max-width: 768px) {
+  .country-detail {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .detail-columns {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .detail-info h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
