@@ -127,6 +127,38 @@ const card = document.createElement('article');
     .map(currencies => currencies.name)
     .join(', ');
   }
+  let languages = 'N/A';
+  if (country.languages) {
+    languages = Object.values(country.languages).join(', ');
+  }
+  detailContent.innerHTML = 
+`<div class="country-detail">
+   <img class="detail-flag" src="${country.flags.png}" alt="Flag of ${country.name.common}">
+ <div class="detail-info">
+    <h1>${country.name.common}</h1>
+  <div class="detail-columns">
+  <div class="detail-column">
+   <p><strong>Native Name:</strong> ${nativeName}</p>
+   <p><strong>Population:</strong> ${country.population.toLocaleString()}</p>
+   <p><strong>Region:</strong> ${country.region}</p>
+   <p><strong>Sub Region:</strong> ${country.subregion || 'N/A'}</p>
+   <p><strong>Capital:</strong> ${country.capital ? country.capital[0] : 'N/A'}</p>
+  </div>
+  <div class="detail-column">
+    <p><strong>Top Level Domain:</strong> ${topLevelDomain}</p>
+    <p><strong>Currencies:</strong> ${currencies}</p>
+    <p><strong>Languages:</strong> ${languages}</p>
+  </div>
+</div>
+</div>
+</div>`;
+function showDetailContent(country) {
+  document.querySelector('.main-container').style.display = 'none';
+  const detailPage = document.getElementById('detail-page');
+  detailPage.style.display = 'block';
+  
+  
+}
   }
   card.style.cursor ='pointer';
 
