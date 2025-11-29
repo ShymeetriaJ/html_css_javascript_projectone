@@ -6,6 +6,8 @@ darkMode.addEventListener('click', () => {
 const countryContainer = document.getElementById(`country-container`);
 const searchInput = document.getElementById(`searchinput`);
 const filterDropdown = document.getElementById(`filter-dropdown`);
+const backBtn = document.getElementById(`go-back-btn`);
+
 
 let apiCountries = [];
 
@@ -21,7 +23,7 @@ function convertHtml(string) {
 async function fetchapiCountries() {
     console.log('starting fetch....')
     try {
-        const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,population,region,capital');
+        const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,population,region,subregion,capital,tld,currencies,languages');
         console.log('Response status:', response.status);
         if (!response.ok) throw new Error("Error fetching api data");
 
@@ -118,8 +120,8 @@ const card = document.createElement('article');
       }
     }
   let topLevelDomain = 'N/A';
-  if (country.topLevelDomain && country.topLevelDomain.length > 0) {
-    topLevelDomain = country.topLevelDomain.join(', ');
+  if (country.tld && country.tld.length > 0) {
+    tld = country.tld.join(', ');
   }
   let currencies = 'N/A';
   if (country.currencies) {
@@ -131,6 +133,7 @@ const card = document.createElement('article');
   if (country.languages) {
     languages = Object.values(country.languages).join(', ');
   }
+  
   detailContent.innerHTML = 
 `<div class="country-detail">
    <img class="detail-flag" src="${country.flags.png}" alt="Flag of ${country.name.common}">
@@ -152,19 +155,19 @@ const card = document.createElement('article');
 </div>
 </div>
 </div>`;
-function showDetailContent(country) {
-  document.querySelector('.main-container').style.display = 'none';
+}
+
+card.style.cursor ='pointer';
+
+return card;
+}
+function backToHomePage() {
   const detailPage = document.getElementById('detail-page');
-  detailPage.style.display = 'block';
+  detailPage.style.display = 'none';
   
-  
+  document.querySelector('.main-container').style.display = 'block';
+  window.scrollTo(0,0);
 }
-  }
-  card.style.cursor ='pointer';
-
-  return card;
-}
-
 function combofilters() {
   const searchCountry = searchInput.value.trim().toLowerCase();
   const searchRegion = filterDropdown.value;
@@ -186,5 +189,9 @@ renderCountries(filterCountries);
 }
 searchInput.addEventListener('input', combofilters);
 filterDropdown.addEventListener('change', combofilters);
+backBtn.addEventListener('click', backToHomePage);
+
+
+
 
 fetchapiCountries();
