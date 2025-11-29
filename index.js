@@ -23,7 +23,7 @@ function convertHtml(string) {
 async function fetchapiCountries() {
     console.log('starting fetch....')
     try {
-        const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,population,region,subregion,capital,tld,currencies,languages');
+        const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,population,region,subregion,capital,tld,currencies,languages,borders,cca3');
         console.log('Response status:', response.status);
         if (!response.ok) throw new Error("Error fetching api data");
 
@@ -160,6 +160,12 @@ const card = document.createElement('article');
 card.style.cursor ='pointer';
 
 return card;
+}
+function getBorderCountries(borderCodes) {
+  if (!borderCodes || borderCodes.length === 0) {
+    return [];
+  }
+  
 }
 function backToHomePage() {
   const detailPage = document.getElementById('detail-page');

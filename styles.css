@@ -230,4 +230,15 @@ body {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
   }
+  .input {
+    flex-direction: column;
+  }
+  
+  .searchbox {
+    width: 100%;
+  }
+  
+  .filter-selection select {
+    width: 100%;
+  }
 }
