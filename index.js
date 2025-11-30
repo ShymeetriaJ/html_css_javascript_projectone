@@ -23,7 +23,7 @@ function convertHtml(string) {
 async function fetchapiCountries() {
     console.log('starting fetch....')
     try {
-        const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,population,region,subregion,capital,tld,currencies,languages,borders,cca3');
+        const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags,population,region,subregion,capital,tld,currencies,languages,borders');
         console.log('Response status:', response.status);
         if (!response.ok) throw new Error("Error fetching api data");
 
@@ -161,12 +161,7 @@ card.style.cursor ='pointer';
 
 return card;
 }
-function getBorderCountries(borderCodes) {
-  if (!borderCodes || borderCodes.length === 0) {
-    return [];
-  }
-  
-}
+
 function backToHomePage() {
   const detailPage = document.getElementById('detail-page');
   detailPage.style.display = 'none';
@@ -192,6 +187,16 @@ function combofilters() {
   });
 }
 renderCountries(filterCountries);
+}
+function getBorderCountries(borderCodes) {
+  if (!borderCodes || borderCodes.length === 0) {
+    return [];
+  }
+  const borderCountries = borderCodes.map(code => {
+    const country = apiCountries.find(c => c.ccn3 === code);
+    return county ? country.name.common : null;
+  }).filter(name => name !== null);
+  return borderCountries;
 }
 searchInput.addEventListener('input', combofilters);
 filterDropdown.addEventListener('change', combofilters);
