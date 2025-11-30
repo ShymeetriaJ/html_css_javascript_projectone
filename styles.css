@@ -242,3 +242,42 @@ body {
     width: 100%;
   }
 }
+
+/* go back btn styling*/
+.border-countries {
+  margin-top: 2rem;
+  grid-column: 1 / -1; 
+}
+
+.border-countries p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.border-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.border-btn {
+  background: #ffffff;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-family: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dark .border-btn {
+  background: #2b3945;
+}
+
+.border-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}

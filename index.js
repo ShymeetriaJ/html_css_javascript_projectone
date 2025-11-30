@@ -6,8 +6,7 @@ darkMode.addEventListener('click', () => {
 const countryContainer = document.getElementById(`country-container`);
 const searchInput = document.getElementById(`searchinput`);
 const filterDropdown = document.getElementById(`filter-dropdown`);
-const backBtn = document.getElementById(`go-back-btn`);
-
+const backBtn = document.getElementById(`back-btn`);
 
 let apiCountries = [];
 
@@ -37,8 +36,7 @@ async function fetchapiCountries() {
             console.error(`Failed to fetch countries`, error)
             if (countryContainer) {
             countryContainer.innerHTML = `<p> Sorry, try again later.</p>`;
-        }
-    }
+        }}
 }
 function renderCountries(countries) {
     if (!countryContainer) return;
@@ -55,7 +53,6 @@ countries.forEach(country => {
         countryContainer.appendChild(card);
     });
 }
-
 
 function makeCountryCard(country = {} ) {
 
@@ -105,7 +102,7 @@ const card = document.createElement('article');
     showDetailContent(country);
   });
   
-  function showDetailContent(country) {
+  async function showDetailContent(country) {
     document.querySelector('.main-container').style.display = 'none';
     const detailPage = document.getElementById('detail-page');
     detailPage.style.display = 'block';
@@ -121,7 +118,7 @@ const card = document.createElement('article');
     }
   let topLevelDomain = 'N/A';
   if (country.tld && country.tld.length > 0) {
-    tld = country.tld.join(', ');
+    topLevelDomain = country.tld.join(', ');
   }
   let currencies = 'N/A';
   if (country.currencies) {
@@ -133,7 +130,17 @@ const card = document.createElement('article');
   if (country.languages) {
     languages = Object.values(country.languages).join(', ');
   }
-  
+  const borderCodes = await getBorderCountries(country.borders);
+  let borderButtonsHTML = '';
+  if (borderCodes.length > 0) {
+    borderButtonsHTML = 
+    `<div class = "border-countries">
+      <p><strong>Border Countries:</strong></p>
+    <div class = "border-buttons">
+    ${borderCodes.map(name => `<button class= "border-btn" data-country= "${name}">${name}</button>`).join('')}
+    </div>
+    </div>`;
+  }
   detailContent.innerHTML = 
 `<div class="country-detail">
    <img class="detail-flag" src="${country.flags.png}" alt="Flag of ${country.name.common}">
@@ -153,14 +160,40 @@ const card = document.createElement('article');
     <p><strong>Languages:</strong> ${languages}</p>
   </div>
 </div>
+${borderButtonsHTML}
 </div>
 </div>`;
+borderButtonListener();
 }
+
+function borderButtonListener() {
+  const borderButtons = document.querySelectorAll('.border-btn');
+  
+  borderButtons.forEach(button => {
+    button.addEventListener('click', async () => {
+      const countryName = button.getAttribute('data-country');
+      
+      try {
+        const response = await fetch(`https://restcountries.com/v3.1/name/${countryName}?fullText=true`);
+        const data = await response.json();
+        
+        if (data && data.length > 0) {
+          showDetailContent(data[0]);
+        }
+      } catch (error) {
+        console.error('Error fetching border country:', error);
+      }
+    });
+  });
+}
+
+
 
 card.style.cursor ='pointer';
-
 return card;
+
 }
+
 
 function backToHomePage() {
   const detailPage = document.getElementById('detail-page');
@@ -169,6 +202,8 @@ function backToHomePage() {
   document.querySelector('.main-container').style.display = 'block';
   window.scrollTo(0,0);
 }
+
+
 function combofilters() {
   const searchCountry = searchInput.value.trim().toLowerCase();
   const searchRegion = filterDropdown.value;
@@ -193,14 +228,17 @@ async function getBorderCountries(borderCodes) {
     return [];
   }
   try {
-    const countryCodes = borderCodes.join(', ');
-    const response = await fetch(`https://restcountries.com/v3.1/alpha?codes=${codesString}`);
+    const countryCodes = borderCodes.join(',');
+    console.log('code string', countryCodes);
+    const response = await fetch(`https://restcountries.com/v3.1/alpha?codes=${countryCodes}`);
     if (!response.ok) {
       return [];
     }
 
     const countries = await response.json();
-    return countries.map(country => country.name.commom);
+    console.log('Fetched border countries:', countries)
+    return countries.map(country => country.name.common);
+
   } catch (error) {
     console.error('Error fetching border countries:', error);
     return [];
@@ -209,6 +247,7 @@ async function getBorderCountries(borderCodes) {
 searchInput.addEventListener('input', combofilters);
 filterDropdown.addEventListener('change', combofilters);
 backBtn.addEventListener('click', backToHomePage);
+
 
 
 
