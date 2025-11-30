@@ -188,15 +188,23 @@ function combofilters() {
 }
 renderCountries(filterCountries);
 }
-function getBorderCountries(borderCodes) {
+async function getBorderCountries(borderCodes) {
   if (!borderCodes || borderCodes.length === 0) {
     return [];
   }
-  const borderCountries = borderCodes.map(code => {
-    const country = apiCountries.find(c => c.ccn3 === code);
-    return county ? country.name.common : null;
-  }).filter(name => name !== null);
-  return borderCountries;
+  try {
+    const countryCodes = borderCodes.join(', ');
+    const response = await fetch(`https://restcountries.com/v3.1/alpha?codes=${codesString}`);
+    if (!response.ok) {
+      return [];
+    }
+
+    const countries = await response.json();
+    return countries.map(country => country.name.commom);
+  } catch (error) {
+    console.error('Error fetching border countries:', error);
+    return [];
+  }
 }
 searchInput.addEventListener('input', combofilters);
 filterDropdown.addEventListener('change', combofilters);
