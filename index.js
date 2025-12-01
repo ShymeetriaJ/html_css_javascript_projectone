@@ -1,6 +1,15 @@
 const darkMode = document.getElementById(`dark-mode-btn`);
 darkMode.addEventListener('click', () => {
     document.body.classList.toggle('dark');
+    
+    const isDark = document.body.classList.contains('dark');
+    if (isDark) {
+      darkMode.innerHTML = '<i class="fa-solid fa-moon" aria-hidden="true"></i><span>Dark Mode</span>';
+      darkMode.setAttribute('aria-pressed', 'true');
+    } else {
+      darkMode.innerHTML = '<i class="fa-regular fa-moon" aria-hidden="true"></i><span>Dark Mode</span>';
+      darkMode.setAttribute('aria-pressed', 'false');
+    }
 });
 
 const countryContainer = document.getElementById(`country-container`);
@@ -87,7 +96,8 @@ if (country && Array.isArray(country.capital) && country.capital.length > 0) {
 
 const card = document.createElement('article');
   card.className = 'country-card';
-  card.setAttribute('role', 'article');
+  card.setAttribute('role', 'button');
+  card.setAttribute('tabindex', '0');
   card.setAttribute('aria-label', `Country card for ${name}`);
   
   card.innerHTML = 
@@ -101,7 +111,15 @@ const card = document.createElement('article');
   card.addEventListener('click', () => {
     showDetailContent(country);
   });
-  
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === '') {
+      e.preventDefault();
+      showDetailContent(country);
+    }
+  });
+  card.style.cursor = 'pointer';
+  return card;
+
   async function showDetailContent(country) {
     document.querySelector('.main-container').style.display = 'none';
     const detailPage = document.getElementById('detail-page');
@@ -182,19 +200,9 @@ function borderButtonListener() {
         }
       } catch (error) {
         console.error('Error fetching border country:', error);
-      }
-    });
-  });
+      }});
+  });}
 }
-
-
-
-card.style.cursor ='pointer';
-return card;
-
-}
-
-
 function backToHomePage() {
   const detailPage = document.getElementById('detail-page');
   detailPage.style.display = 'none';
@@ -202,7 +210,6 @@ function backToHomePage() {
   document.querySelector('.main-container').style.display = 'block';
   window.scrollTo(0,0);
 }
-
 
 function combofilters() {
   const searchCountry = searchInput.value.trim().toLowerCase();
@@ -223,6 +230,7 @@ function combofilters() {
 }
 renderCountries(filterCountries);
 }
+
 async function getBorderCountries(borderCodes) {
   if (!borderCodes || borderCodes.length === 0) {
     return [];
@@ -244,12 +252,9 @@ async function getBorderCountries(borderCodes) {
     return [];
   }
 }
+
 searchInput.addEventListener('input', combofilters);
 filterDropdown.addEventListener('change', combofilters);
 backBtn.addEventListener('click', backToHomePage);
-
-
-
-
 
 fetchapiCountries();

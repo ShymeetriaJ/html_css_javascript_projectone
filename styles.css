@@ -1,3 +1,8 @@
+/* header styling */
+:focus {
+  outline: none;
+}
+
 header {
   background: #ffffff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -16,7 +21,7 @@ nav {
   align-items: center;
   padding: 1.5rem 0;
 }
-.logo-container hi {
+.logo-container h1 {
   font-size: 1.5rem;
   font-weight: 800;
   margin: 0;
@@ -50,10 +55,7 @@ nav {
 .dark .searchbox {
   background: #2b3945;
 }
-
-
 /*search and filter styling*/
-
 .searchbox input {
   border: none;
   outline: none;
@@ -80,11 +82,6 @@ nav {
 .dark .country-card {
   background: #2b3945;
 }
-
-
-
-
-
 
 body {
   font-family: "Nunito Sans", "Helvetica Neue", Arial;
@@ -131,7 +128,6 @@ body {
 }
 
 /* detail page */
-
 .detail-page {
   background: #fafafa;
   min-height: 100vh;
@@ -172,9 +168,7 @@ body {
   opacity: 0.8;
 }
 
-
 /*glow and lift effect for country cards*/
-
 .country-card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -214,7 +208,7 @@ body {
 .detail-column strong {
   font-weight: 600;
 }
-/* Screen responsiveness */
+/* screen responsiveness */
 @media (max-width: 768px) {
   .country-detail {
     grid-template-columns: 1fr;

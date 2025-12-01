@@ -18,8 +18,8 @@
                 <div class="logo-container">
                     <h1>Where in the world?</h1>
                 </div>
-                <button id="dark-mode-btn" class="dark-mode-btn">
-                    <i class="fa-regular fa-moon"></i> Dark Mode
+                <button id="dark-mode-btn" class="dark-mode-btn" aria-pressed="false">
+                    <i class="fa-regular fa-moon" aria-hidden="true"></i><span>Dark Mode</span>
                 </button>
             </nav>
         </div>
@@ -27,11 +27,13 @@
     <main>
         <div class="main-container">
             <div class="input">
-                <div class="searchbox">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchinput" placeholder="Search for a country...">
+                <label for="searchinput" class="hidden">Search for countries</label>
+                <div class="searchbox" role="search" aria-label="Search for countries">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <input type="text" id="searchinput" placeholder="Search for a country..." aria-label="Search countries">
                 </div>
                 <div class="filter-selection">
+                    <label for="filter-dropdown">Filter by region</label>
                     <select name="filter-dropdown" id="filter-dropdown">
                         <option value="">Filter by Region</option>
                         <option value="Africa">Africa</option>
@@ -45,12 +47,12 @@
             <div class="country-container" id="country-container"></div>
         </div>
     </main>
-    <div class="detail-page" id="detail-page" style="display: none";>
-        <div class="detail-container">
+    <div class="detail-page" id="detail-page" style="display: none" aria-hidden="true">
+        <div class="detail-container" role="dialog" aria-modal="true" aria-labelledby="detail-title">
             <button id="back-btn" class="back-btn">
                 <i class="fa-solid fa-arrow-left"></i> Back
             </button>
-            <div id="detail-content"></div>
+            <div id="detail-content" tabindex="0" aria-live="polite"></div>
         </div>
     </div>
     
